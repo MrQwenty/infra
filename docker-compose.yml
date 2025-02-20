@@ -1,0 +1,413 @@
+name: influenza-orbyta
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGODB_INITDB_DATABASE: influenzadb
+    networks:
+      influenza-network: null
+    volumes:
+      - mongodb_data:/data
+  logging-service:
+    build:
+      context: ../logging-service
+      dockerfile: build/docker/Dockerfile
+    container_name: logging-service
+    ports:
+      - "5006:5006"
+    environment:
+      LOG_LEVEL: debug
+      MONGODB_URI: mongodb:27017/
+      LOG_DB_USERNAME: admin
+      LOG_DB_PASSWORD: root
+      #################
+      # general db client settings
+      #################
+      DB_TIMEOUT: 30
+      DB_IDLE_CONN_TIMEOUT: 45
+      DB_MAX_POOL_SIZE: 8
+      DB_DB_NAME_PREFIX:
+
+      #################
+      # grpc services
+      #################
+      LOGGING_SERVICE_LISTEN_PORT: 5006
+      LOG_DB_CONNECTION_STR: mongodb:27017/
+      LOG_DB_CONNECTION_PREFIX:
+    networks:
+      influenza-network: null
+    volumes:
+      - logging_data:/data
+    depends_on:
+      - mongodb
+  email-client-service:
+    build:
+      context: ../messaging-service
+      dockerfile: build/docker/email-client-service/Dockerfile
+    container_name: email-client-service
+    ports:
+      - "5005:5005"
+    environment:
+      LOG_LEVEL: debug
+      MONGODB_URI: mongodb:27017/
+      MESSAGING_CONFIG_FOLDER: /config
+      EMAIL_CLIENT_SERVICE_LISTEN_PORT: 5005
+    networks:
+      influenza-network: null
+    volumes:
+      - email_client_service_data:/data
+      - ./config:/config
+    depends_on:
+      - logging-service
+      - mongodb
+  message-scheduler:
+    build:
+      context: ../messaging-service
+      dockerfile: build/docker/message-scheduler/Dockerfile
+    container_name: message-scheduler
+    ports:
+      - "8084:8084"
+    environment:
+      LOG_LEVEL: debug
+      MONGODB_URI: mongodb:27017/
+      GLOBAL_DB_CONNECTION_STR: mongodb:27017/
+      GLOBAL_DB_CONNECTION_PREFIX:
+      # should be secret:
+      GLOBAL_DB_USERNAME: admin
+      GLOBAL_DB_PASSWORD: root
+
+      MESSAGE_DB_CONNECTION_STR: mongodb:27017/
+      MESSAGE_DB_CONNECTION_PREFIX:
+      # should be secret:
+      MESSAGE_DB_USERNAME: admin
+      MESSAGE_DB_PASSWORD: root
+
+      DB_TIMEOUT: 30
+      DB_IDLE_CONN_TIMEOUT: 45
+      DB_MAX_POOL_SIZE: 8
+      DB_DB_NAME_PREFIX: INF_
+
+      # Interpreted in seconds:
+      MESSAGE_SCHEDULER_INTERVAL_HIGH_PRIO: 45
+      MESSAGE_SCHEDULER_INTERVAL_LOW_PRIO: 1800
+      MESSAGE_SCHEDULER_INTERVAL_AUTO_MESSAGE: 120
+      MESSAGE_SCHEDULER_INTERVAL_PARTICIPANT_MESSAGE: 50
+      MESSAGE_SCHEDULER_INTERVAL_RESEARCHER_NOTIFICATION: 20
+
+      ADDR_USER_MANAGEMENT_SERVICE: user-management-service:5002
+      ADDR_STUDY_SERVICE: study-service:5003
+      ADDR_EMAIL_CLIENT_SERVICE: email-client-service:5005
+    networks:
+      influenza-network: null
+    volumes:
+      - message_scheduler_data:/data
+    depends_on:
+      - logging-service
+      - mongodb
+  messaging-service:
+    build:
+      context: ../messaging-service
+      dockerfile: build/docker/messaging-service/Dockerfile
+    container_name: messaging-service
+    ports:
+      - "5004:5004"
+    environment:
+      LOG_LEVEL: debug
+      MONGODB_URI: mongodb:27017/
+      GLOBAL_DB_CONNECTION_STR: mongodb:27017/
+      GLOBAL_DB_CONNECTION_PREFIX:
+      # should be secret:
+      GLOBAL_DB_USERNAME: admin
+      GLOBAL_DB_PASSWORD: rooot
+
+      MESSAGE_DB_CONNECTION_STR: mongodb:27017/
+      MESSAGE_DB_CONNECTION_PREFIX:
+      # should be secret:
+      MESSAGE_DB_USERNAME: admin
+      MESSAGE_DB_PASSWORD: root
+
+      DB_TIMEOUT: 30
+      DB_IDLE_CONN_TIMEOUT: 45
+      DB_MAX_POOL_SIZE: 8
+      DB_DB_NAME_PREFIX: INF_
+
+      ADDR_USER_MANAGEMENT_SERVICE: user-management-service:5002
+      ADDR_STUDY_SERVICE: study-service:5003
+      ADDR_EMAIL_CLIENT_SERVICE: email-client-service:5005
+      ADDR_LOGGING_SERVICE: logging-service:5006
+
+      MESSAGING_SERVICE_LISTEN_PORT: 5004
+    networks:
+      influenza-network: null
+    volumes:
+      - messaging_service_data:/data
+    depends_on:
+      - logging-service
+      - mongodb
+  user-management-service:
+    build:
+      context: ../user-management-service
+      dockerfile: build/docker/Dockerfile
+    container_name: user-management-service
+    ports:
+      - "5002:5002"
+    environment:
+      LOG_LEVEL: debug
+      MONGODB_URI: mongodb:27017/
+      #################
+      # UserDB
+      #################
+      USER_DB_CONNECTION_STR: mongodb:27017/
+      USER_DB_CONNECTION_PREFIX:
+      # should be secret:
+      USER_DB_USERNAME: admin
+      USER_DB_PASSWORD: root
+
+      #################
+      # GlobalDB
+      #################
+      GLOBAL_DB_CONNECTION_STR: mongodb:27017/
+      GLOBAL_DB_CONNECTION_PREFIX:
+      # should be secret:
+      GLOBAL_DB_USERNAME: admin
+      GLOBAL_DB_PASSWORD: root
+
+      #################
+      # general db client settings
+      #################
+      DB_TIMEOUT: 30
+      DB_IDLE_CONN_TIMEOUT: 45
+      DB_MAX_POOL_SIZE: 8
+      DB_DB_NAME_PREFIX:
+
+      #################
+      # JWT config
+      #################
+
+      # Token expiration delay (in minutes)
+      TOKEN_EXPIRATION_MIN: 5
+
+      # Random generated base64 encoded key, should be secret
+      JWT_TOKEN_KEY: PAl6Wsq+OvFIsY5Us+RXKA==
+
+      #################
+      # Password Hash
+      #################
+      ARGON2_MEMORY: 65536
+      ARGON2_ITERATIONS: 4
+      ARGON2_PARALLELISM: 2
+
+      ####
+      # Parameters for User services behaviors
+      ####
+
+      # Maximum number of new created accounts, during the signupRateLimitWindow (5 minutes)
+      NEW_USER_RATE_LIMIT: 100
+
+      # Delay (seconds) after which to cleanup user account when it has not been verified
+      CLEAN_UP_UNVERIFIED_USERS_AFTER: 129000
+
+      # Lifetime in seconds for verification code of a new account. Default is 15 minutes
+      VERIFICATION_CODE_LIFETIME: 900
+
+      # WeekDay assignation as the comma separated values of [Day]=Weight.
+      # Where [Day] is 3 letter abbreviated day name (Mon, Tue, Wed,...) case insensitive
+      # Weight is a positive integer value (value only matters relative to the sum of all weights)
+      # In the following example Wednesday and Thursday will have probability to be picked 3 times than the others days
+      # Zero weight means the day is excluded for the assignation and wont be picked up.
+      # Empty value (or missing) will apply the legacy random strategy (pick one day randomly for each user with same probability)
+      # For example =Mon=1,Tue=3,Wed=3,Thu=3,Fri=1,Sat=1,Sun=0
+      WEEKDAY_ASSIGNATION_WEIGHTS: Wed=3
+
+      # Token lifetime for Invitation message
+      # This variable handle the time.Duration format (value + unit, e.g. "5h" for 5 hours), without unit it's interpreted as minutes
+      # Default is 7 days (168h)
+      INVITATION_TOKEN_LIFETIME: 168h
+
+      # Token lifetime for Invitation message
+      # This variable handle the time.Duration format (value + unit, e.g. "5h" for 5 hours), without unit it's interpreted as minutes
+      # Default is 30 days (720 hours)
+      CONTACT_VERIFICATION_TOKEN_LIFETIME: 720h
+      SEND_REMINDER_TO_UNVERIFIED_USERS_AFTER: 24
+      #################
+      # grpc services
+      #################
+      USER_MANAGEMENT_LISTEN_PORT: 5002
+      ADDR_STUDY_SERVICE: study-service:5003
+      ENV_ADDR_STUDY_SERVICE: study-service:5003
+      ADDR_MESSAGING_SERVICE: messaging-service:5004
+      ADDR_LOGGING_SERVICE: logging-service:5006
+      ENV_ADDR_LOGGING_SERVICE: logging-service:5006
+    networks:
+      influenza-network: null
+    volumes:
+      - user_management_service_data:/data
+    depends_on:
+      - messaging-service
+      - logging-service
+  study-service:
+    build:
+      context: ../study-service
+      dockerfile: build/docker/Dockerfile
+    container_name: study-service
+    ports:
+      - "5003:5003"
+    environment:
+      # loglevels: debug info warning error
+      LOG_LEVEL: "debug"
+      #################
+      # GlobalDB
+      #################
+      GLOBAL_DB_CONNECTION_STR: mongodb:27017/
+      GLOBAL_DB_CONNECTION_PREFIX:
+      # should be secret:
+      GLOBAL_DB_USERNAME: admin
+      GLOBAL_DB_PASSWORD: root
+      #################
+      # StudyDB
+      #################
+      STUDY_DB_CONNECTION_STR: mongodb:27017/
+      STUDY_DB_CONNECTION_PREFIX:
+      # should be secret:
+      STUDY_DB_USERNAME: admin
+      STUDY_DB_PASSWORD: root
+      #################
+      # general db client settings
+      #################
+      DB_TIMEOUT: 30
+      DB_IDLE_CONN_TIMEOUT: 45
+      DB_MAX_POOL_SIZE: 8
+      DB_DB_NAME_PREFIX:
+      #################
+      # study engine settings
+      #################
+      STUDY_TIMER_EVENT_FREQUENCY: 20
+      STUDY_SERVICE_LISTEN_PORT: 5003
+      # how often the timer event should be performed (only from one instance of the service) - seconds
+      STUDY_TIMER_EVENT_CHECK_INTERVAL_MIN: 2
+      #  range of the uniform random distribution - varying the check interval to avoid a steady collisions
+      STUDY_TIMER_EVENT_CHECK_INTERVAL_VAR: 1
+      # Random string to be used to build the study key, for example a base64 string (> 16 bytes of data), should be secret:
+      STUDY_GLOBAL_SECRET:
+      ADDR_LOGGING_SERVICE:  logging-service:5006
+    networks:
+      influenza-network: null
+    volumes:
+      - study_data:/data
+    depends_on:
+      - user-management-service
+  management-api:
+    build:
+      context: ../api-gateway
+      dockerfile: build/docker/management-api/Dockerfile
+    container_name: management-api
+    ports:
+      - "3232:3232"
+    environment:
+      LOG_LEVEL: debug
+      MANAGEMENT_API_GATEWAY_LISTEN_PORT: 3232
+      DEBUG_MODE: false
+      CORS_ALLOW_ORIGINS: http://participant-webapp:3000
+
+      # clients:
+      ADDR_USER_MANAGEMENT_SERVICE: user-management-service:5002
+      ADDR_STUDY_SERVICE: study-service:5003
+      ADDR_MESSAGING_SERVICE: messaging-service:5004
+    networks:
+      influenza-network: null
+    volumes:
+      - management_api_data:/data
+    depends_on:
+      - study-service
+      - user-management-service
+      - messaging-service
+      - logging-service
+  participant-api:
+    build:
+      context: ../api-gateway
+      dockerfile: build/docker/participant-api/Dockerfile
+    container_name: participant-api
+    ports:
+      - "3231:3231"
+    environment:
+      LOG_LEVEL: debug
+
+      # listen ports:
+      GATEWAY_LISTEN_PORT: 3231
+      DEBUG_MODE: false
+      CORS_ALLOW_ORIGINS: http://participant-webapp:3000
+
+      # clients:
+      ADDR_USER_MANAGEMENT_SERVICE: user-management-service:5002
+      ADDR_STUDY_SERVICE: study-service:5003
+
+      USE_DELETE_PARTICIPANT_DATA_ENDPOINT: true
+      DISABLE_SIGNUP_WITH_EMAIL_ENDPOINT: true
+
+      USE_RECAPTCHA: false
+      RECAPTCHA_SECRET: Lf91E8jAAAAAJQbnG9w9DJONc388SY6BqQIwH_n
+    networks:
+      influenza-network: null
+    volumes:
+      - participant_api_data:/data
+    depends_on:
+      - study-service
+      - user-management-service
+      - messaging-service
+      - logging-service
+  participant-webapp:
+    build:
+      context: ../participant-webapp
+      dockerfile: Dockerfile
+    container_name: participant-webapp
+    ports:
+      - "3000:80"
+    environment:
+      REACT_APP_DEFAULT_INSTANCE: italy
+      REACT_APP_API_BASE_URL: /api
+      REACT_APP_DEFAULT_LANGUAGE: it
+      REACT_APP_FALLBACK_LANGUAGE: en
+      REACT_APP_CONTENT_URL: "/assets"
+      REACT_APP_USE_RECAPTCHA: false
+      REACT_APP_RECAPTCHA_SITEKEY: Lf91E8jAAAAAJQbnG9w9DJONc388SY6BqQIwH_n
+      REACT_APP_TITLE: Influenzanet
+      REACT_APP_DESCRIPTION: "Influenzanet - a participatory surveillance platform"
+      REACT_APP_CSP_DEFAULT_SRC: "'self'"
+      REACT_APP_CSP_BASE_URI: "'self'"
+      REACT_APP_CSP_FRAME_ANCESTORS: "'none'"
+      REACT_APP_CSP_MEDIA_SRC: "'self'"
+      REACT_APP_CSP_IMG_SRC: "'self'"
+      REACT_APP_CSP_STYLE_SRC: "'self' https://www.gstatic.com/recaptcha/ https://www.google.com/recaptcha/ "
+      REACT_APP_CSP_SCRIPT_SRC: "'self' https://www.gstatic.com/recaptcha/ https://www.google.com/recaptcha/"
+      REACT_APP_CSP_FRAME_SRC: "https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha"
+      REACT_APP_CSP_CHILD_SRC: "https://www.google.com/"
+      REACT_APP_CSP_CONNECT_URLS: "'self'' https://www.google.com/recaptcha/ https://www.google.com/ http://www.w3.org/2000/svg"
+    networks:
+      influenza-network: null
+    volumes:
+      - participant_webapp_data:/app/data
+    depends_on:
+      - management-api
+
+networks:
+  influenza-network:
+    name: influenza-network
+    driver: bridge
+
+volumes:
+  mongodb_data: {}
+  logging_data: {}
+  email_client_service_data: {}
+  message_scheduler_data: {}
+  messaging_service_data: {}
+  user_management_service_data: {}
+  study_data: {}
+  management_api_data: {}
+  participant_api_data: {}
+  participant_webapp_data: {}
