@@ -27,7 +27,7 @@ echo "Copying MongoDB dump to container..."
 docker cp "$DUMP_FOLDER" "$MONGO_CONTAINER_NAME":/data
 
 echo "Restoring dump..."
-docker exec -i "$MONGO_CONTAINER_NAME" mongorestore --archive=data/dmp_influenza/mongo.dump --username "$MONGO_USERNAME" --password "$MONGO_PASSWORD"
+docker exec -i "$MONGO_CONTAINER_NAME" mongorestore --archive=data/mongo.dump --username "$MONGO_USERNAME" --password "$MONGO_PASSWORD"
 
 echo "Data import completed"
 
