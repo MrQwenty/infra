@@ -1,0 +1,56 @@
+{
+  "title": "Settings",
+  "account": {
+    "title": "Account settings",
+    "email": {
+      "title": "Email address",
+      "info": "Do you want to use a different email address? Change your email address by clicking on the button below. Note: you cannot log back in until you have confirmed the email address."
+    },
+    "password": {
+      "title": "Password",
+      "info": "Do you want to change the password? Change your password by clicking on the button below. Note: you will need your current password."
+    },
+    "profiles": {
+      "title": "Profiles",
+      "info": "Edit your own profile or, as a parent or legal representative, add the profile of your child aged up to 17 years.",
+      "btn": "{{count}} profile",
+      "btn_plural": "{{count}} profiles",
+      "btn_other": "{{count}} profiles"
+    }
+  },
+  "communication": {
+    "title": "Communication settings",
+    "emailReminders": {
+      "title": "Weekly email and newsletter",
+      "info": "You can opt to stop receiving the weekly reminder email or the newsletter.",
+      "btnManageNotifications": "Change settings"
+    },
+    "defaultLanguage": {
+      "title": "Language",
+      "info": "You can change the language here.",
+      "languages": {
+        "en": "English",
+        "it": "Italiano"
+      }
+    }
+  },
+  "deletion": {
+    "title": "Unsubscribe / withdraw consent",
+    "warning": "If you unsubscribe / withdraw consent, your account data will be deleted.\nAfter the account has been deleted, we will no longer be able to link information you have provided (such as age and symptoms) to you.",
+    "deleteBtn": "Unsubscribe"
+  },
+  "references": {
+    "title": "In need of assistance?",
+    "faqLink": "FAQ",
+    "privacyStatementLink": "Privacy statement",
+    "contactLink": "Contact"
+  },
+  "systemInfo": {
+    "title": "System information",
+    "appNameLabel": "Application name",
+    "appName": "Influenzanet",
+    "versionLabel": "Version",
+    "browserNameLabel": "Browser name",
+    "browserVersionLabel": "Browser version"
+  }
+}

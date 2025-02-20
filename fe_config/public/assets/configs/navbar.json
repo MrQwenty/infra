@@ -1,0 +1,47 @@
+{
+  "breakpoint": "xl",
+  "leftItems": [
+    {
+      "type": "internal",
+      "hideWhen": "auth",
+      "itemKey": "home",
+      "url": "/welcome",
+      "iconClass": "fas fa-home"
+    },
+    {
+      "type": "internal",
+      "hideWhen": "unauth",
+      "itemKey": "authhome",
+      "url": "/home",
+      "iconClass": "fas fa-home"
+    },
+    {
+      "type": "internal",
+      "itemKey": "about",
+      "url": "/about"
+    },
+    {
+      "type": "internal",
+      "itemKey": "faq",
+      "url": "/faq"
+    },
+    {
+      "type": "internal",
+      "itemKey": "results",
+      "url": "/results"
+    },
+    {
+      "type": "internal",
+      "itemKey": "news",
+      "url": "/news"
+    }
+  ],
+  "rightItems": [
+    {
+      "type": "internal",
+      "url": "/settings",
+      "itemKey": "settings",
+      "iconClass": "fas fa-cog"
+    }
+  ]
+}

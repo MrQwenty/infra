@@ -1,0 +1,61 @@
+{
+  "columns": [
+    {
+      "columnKey": "services",
+      "items": [
+        {
+          "type": "internal",
+          "itemKey": "contact",
+          "value": "/contact"
+        },
+        {
+          "type": "external",
+          "itemKey": "twitter",
+          "value": "about:blank",
+          "iconClass": "fab fa-twitter"
+        },
+        {
+          "type": "external",
+          "itemKey": "facebook",
+          "value": "about:blank",
+          "iconClass": "fab fa-facebook"
+        }
+      ]
+    },
+    {
+      "columnKey": "about",
+      "items": [
+        {
+          "type": "internal",
+          "itemKey": "privacy",
+          "value": "/privacy"
+        },
+        {
+          "type": "internal",
+          "itemKey": "disclaimer",
+          "value": "/disclaimer"
+        },
+        {
+          "type": "internal",
+          "itemKey": "accessibility",
+          "value": "/accessibility"
+        }
+      ]
+    },
+    {
+      "columnKey": "languages",
+      "items": [
+        {
+          "type": "language",
+          "itemKey": "en",
+          "value": "en"
+        },
+        {
+          "type": "language",
+          "itemKey": "it",
+          "value": "it"
+        }
+      ]
+    }
+  ]
+}
