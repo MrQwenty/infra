@@ -70,3 +70,7 @@ else
 fi
 
 echo "InfluenzaNet is ready to GO 🚀🚀🚀🚀🚀🚀"
+
+cd ../participant-webapp
+echo "/src/configs" >> .gitignore
+echo "/src/configs/*" >> .gitignore
