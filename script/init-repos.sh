@@ -12,6 +12,9 @@ REPOS=(
     "https://dev.azure.com/orbyta-isi-foundation/influenzanet/_git/infra"
     "https://dev.azure.com/orbyta-isi-foundation/influenzanet/_git/api-gateway"
     "https://dev.azure.com/orbyta-isi-foundation/influenzanet/_git/participant-webapp"
+
+    "https://orbyta-isi-foundation@dev.azure.com/orbyta-isi-foundation/influenzanet/_git/case-web-app-core"
+    "https://orbyta-isi-foundation@dev.azure.com/orbyta-isi-foundation/influenzanet/_git/case-web-ui"
 )
 
 
