@@ -33,4 +33,22 @@ for REPO in "${REPOS[@]}"; do
     fi
 done
 
+
+if ! docker info &>/dev/null; then
+    echo "Docker is not running. Please start Docker and rerun the script."
+    exit 1
+fi
+
+echo "Docker is running. Proceeding with Docker Compose in infra repositories."
+
+
+cd infra
+        if [ -f "docker-compose.yml" ]; then
+            echo "Running Docker Compose in $REPO_NAME..."
+            docker-compose up -d
+        else
+            echo "No docker-compose.yml found in $REPO_NAME, skipping..."
+        fi
+done
+
 echo "Script executed successfully! All repositories have been processed."
