@@ -25,7 +25,7 @@ for REPO in "${REPOS[@]}"; do
     else
         git clone "$REPO" "$REPO_NAME" && cd "$REPO_NAME"
         if [[ "$REPO_NAME" == *infra* ]]; then
-            git checkout main
+            git checkout develop
         else
             git checkout master
         fi
@@ -43,12 +43,30 @@ echo "Docker is running. Proceeding with Docker Compose in infra repositories."
 
 
 cd infra
-        if [ -f "docker-compose.yml" ]; then
-            echo "Running Docker Compose in $REPO_NAME..."
-            docker-compose up -d
-        else
-            echo "No docker-compose.yml found in $REPO_NAME, skipping..."
-        fi
-done
 
-echo "Script executed successfully! All repositories have been processed."
+cd fe_config
+
+
+cp ".env.local" "../../participant-webapp/"
+echo "Copied .env.local to participant-webapp."
+
+cp -r "public" "../../participant-webapp/"
+echo "Copied public dir to participant-webapp."
+
+cp "setupProxy.js" "../../participant-webapp/src/"
+echo "Copied setupProxy.js to participant-webapp."
+
+rm "../../participant-webapp/src/configs"
+ln -s  "../../participant-webapp/public/assets/configs" "../../participant-webapp/src/configs"
+echo "Symlinked to participant-webapp/public."
+
+cd ..
+
+if [ -f "docker-compose.yml" ]; then
+            echo "Running Docker Compose in infra..."
+            docker-compose up -d
+else
+            echo "No docker-compose.yml found in infra, skipping..."
+fi
+
+echo "InfluenzaNet is ready to GO 🚀🚀🚀🚀🚀🚀"
