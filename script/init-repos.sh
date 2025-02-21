@@ -28,7 +28,7 @@ for REPO in "${REPOS[@]}"; do
     else
         git clone "$REPO" "$REPO_NAME" && cd "$REPO_NAME"
         if [[ "$REPO_NAME" == *infra* ]]; then
-            git checkout develop
+            git checkout main
         else
             git checkout master
         fi
@@ -70,6 +70,15 @@ if [ -f "docker-compose.yml" ]; then
             docker-compose up -d
 else
             echo "No docker-compose.yml found in infra, skipping..."
+fi
+
+if [ -f "./script/import-db.sh" ]; then
+    echo "Running import-db.sh..."
+    chmod +x ./script/import-db.sh
+    ./script/import-db.sh
+else
+    echo "Skipping database import, file not found."
+    sleep 5
 fi
 
 echo "InfluenzaNet is ready to GO 🚀🚀🚀🚀🚀🚀"
