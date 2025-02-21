@@ -1,7 +1,7 @@
 const { createProxyMiddleware } = require("http-proxy-middleware");
 
 // change this to the address exposing the participant-api
-const target = "http://localhost:3231";
+const target = "http://participant-api:3231";
 
 module.exports = function (app) {
   app.use(
