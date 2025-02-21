@@ -313,7 +313,7 @@ services:
       LOG_LEVEL: debug
       MANAGEMENT_API_GATEWAY_LISTEN_PORT: 3232
       DEBUG_MODE: false
-      CORS_ALLOW_ORIGINS: http://participant-webapp:3000
+      CORS_ALLOW_ORIGINS: http://localhost:3000
 
       # clients:
       ADDR_USER_MANAGEMENT_SERVICE: user-management-service:5002
@@ -341,14 +341,14 @@ services:
       # listen ports:
       GATEWAY_LISTEN_PORT: 3231
       DEBUG_MODE: false
-      CORS_ALLOW_ORIGINS: http://participant-webapp:3000
+      CORS_ALLOW_ORIGINS: http://localhost:3000
 
       # clients:
       ADDR_USER_MANAGEMENT_SERVICE: user-management-service:5002
       ADDR_STUDY_SERVICE: study-service:5003
 
-      USE_DELETE_PARTICIPANT_DATA_ENDPOINT: true
-      DISABLE_SIGNUP_WITH_EMAIL_ENDPOINT: true
+      USE_DELETE_PARTICIPANT_DATA_ENDPOINT: false
+      DISABLE_SIGNUP_WITH_EMAIL_ENDPOINT: false
 
       USE_RECAPTCHA: false
       RECAPTCHA_SECRET: Lf91E8jAAAAAJQbnG9w9DJONc388SY6BqQIwH_n
