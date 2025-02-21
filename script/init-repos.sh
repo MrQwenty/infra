@@ -86,8 +86,13 @@ echo "InfluenzaNet is ready to GO 🚀🚀🚀🚀🚀🚀"
 cd ../participant-webapp
 yarn install
 
-nohup yarn start > frontend.log 2>&1 &
-disown
+echo "Starting frontend on new tab..."
+
+GIT_BASH_PATH="C:\\Program Files\\Git\\git-bash.exe"
+
+PARTICIPANT_WEBAPP_PATH=$(realpath ../participant-webapp)
+
+"$GIT_BASH_PATH" -c "cd \"$PARTICIPANT_WEBAPP_PATH\" && yarn start" &
 
 echo "/src/configs" >> .gitignore
 echo "/src/configs/*" >> .gitignore
