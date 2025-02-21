@@ -33,7 +33,7 @@ echo "Data import completed"
 
 # Restart all containers to refresh services
 echo "Restarting all services in Docker Compose..."
-docker-compose -f "$DOCKER_COMPOSE_FILE" restart
+#docker-compose -f "$DOCKER_COMPOSE_FILE" restart
 
 echo "All services restarted successfully"
 sleep 10
