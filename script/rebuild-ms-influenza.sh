@@ -53,6 +53,16 @@ if [[ " ${SELECTED_SERVICES[*]} " == *"all"* ]]; then
     echo "Rebuilding all services..."
     docker-compose down
     docker-compose up --build -d
+    # Execute import-db.sh if it exists
+    if [ -f "./script/import-db.sh" ]; then
+        echo "Running import-db.sh..."
+        chmod +x ./script/import-db.sh
+        ./script/import-db.sh
+    else
+        echo "Skipping database import, file not found."
+        sleep 5
+    fi
+
 else
     echo "Stopping selected services..."
     docker-compose stop "${SELECTED_SERVICES[@]}"
@@ -67,8 +77,5 @@ else
     docker-compose up -d "${SELECTED_SERVICES[@]}"
 fi
 
-
 echo "Selected services successfully rebuilt and restarted!"
-
-
-sleep 10
+sleep 5
