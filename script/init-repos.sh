@@ -50,8 +50,8 @@ cd infra
 cd fe_config
 
 
-cp ".env.local" "../../participant-webapp/"
-echo "Copied .env.local to participant-webapp."
+cp ".env.development.local" "../../participant-webapp/"
+echo "Copied .env.development.local to participant-webapp."
 
 cp -r "public" "../../participant-webapp/"
 echo "Copied public dir to participant-webapp."
@@ -84,5 +84,10 @@ fi
 echo "InfluenzaNet is ready to GO 🚀🚀🚀🚀🚀🚀"
 
 cd ../participant-webapp
+yarn install
+
+nohup yarn start > frontend.log 2>&1 &
+disown
+
 echo "/src/configs" >> .gitignore
 echo "/src/configs/*" >> .gitignore
