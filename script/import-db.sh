@@ -1,10 +1,10 @@
 #!/bin/bash
 
-DUMP_FOLDER="../dmp_influenza/mongo.dump"
+DUMP_FOLDER="$(realpath "$(dirname "$0")/../dmp_influenza/mongo.dump")"
 MONGO_CONTAINER_NAME="mongodb"
 MONGO_USERNAME="admin"
 MONGO_PASSWORD="root"
-DOCKER_COMPOSE_FILE="../docker-compose.yml"
+DOCKER_COMPOSE_FILE="$(realpath "$(dirname "$0")/../docker-compose.yml")"
 
 function wait_for_mongodb() {
     echo "Waiting for mongodb to be ready..."
