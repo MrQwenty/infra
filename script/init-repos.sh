@@ -5,6 +5,8 @@ PRINCIPAL_DIR="influenza-workspace"
 
 
 REPOS=(
+    "https://orbyta-isi-foundation@dev.azure.com/orbyta-isi-foundation/influenzanet/_git/api"
+
     "https://orbyta-isi-foundation@dev.azure.com/orbyta-isi-foundation/influenzanet/_git/user-management-service"
     "https://dev.azure.com/orbyta-isi-foundation/influenzanet/_git/study-service"
     "https://dev.azure.com/orbyta-isi-foundation/influenzanet/_git/messaging-service"
