@@ -1,0 +1,553 @@
+{
+	"info": {
+		"_postman_id": "87e6e208-6dd0-4cc8-a327-0663092f7997",
+		"name": "InfluenzaNet",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38718256"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"email\":\"klejdi.kristo@orbyta.it\",\"password\":\"Orbyta12345.\",\"instanceId\":\"italy\",\"verificationCode\":\"\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{participant_url}}/v1/auth/login-with-email",
+							"host": [
+								"{{participant_url}}"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"login-with-email"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"email\":\"klejdi.kristo@orbyta.it\",\"password\":\"Orbyta12345.\",\"instanceId\":\"italy\",\"verificationCode\":\"\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{participant_url}}/v1/auth/login-with-email",
+									"host": [
+										"{{participant_url}}"
+									],
+									"path": [
+										"v1",
+										"auth",
+										"login-with-email"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 03 Mar 2025 14:42:08 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1401"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"token\": {\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YTA4OGJjMzAxZDI1MzhkZDJkZjM5NSIsImluc3RhbmNlX2lkIjoiaXRhbHkiLCJwcm9maWxlX2lkIjoiNjdhMDg4YmMyZTAxMzUxMjA4OTFiM2JlIiwicGF5bG9hZCI6eyJyb2xlcyI6IlBBUlRJQ0lQQU5UIn0sImFjY291bnRDb25maXJtZWQiOnRydWUsImV4cCI6MTc0MTAxMzIyOCwiaWF0IjoxNzQxMDEyOTI4fQ.jqImUFm4nsvYvC5k0CCj-EOT0cRcMzAZzHFonOjtCa8\",\n        \"refreshToken\": \"agkvy5ija5zpkhrd5b7r32uqir7y4uwlhol2qri\",\n        \"expiresIn\": 5,\n        \"profiles\": [\n            {\n                \"id\": \"67a088bc2e0135120891b3be\",\n                \"alias\": \"k****@orbyta.it\",\n                \"consentConfirmedAt\": \"1738574012\",\n                \"avatarId\": \"default\",\n                \"mainProfile\": true\n            }\n        ],\n        \"selectedProfileId\": \"67a088bc2e0135120891b3be\",\n        \"preferredLanguage\": \"it\"\n    },\n    \"user\": {\n        \"id\": \"67a088bc301d2538dd2df395\",\n        \"account\": {\n            \"type\": \"email\",\n            \"accountId\": \"klejdi.kristo@orbyta.it\",\n            \"accountConfirmedAt\": \"1\",\n            \"preferredLanguage\": \"it\"\n        },\n        \"roles\": [\n            \"PARTICIPANT\",\n            \"ADMIN\"\n        ],\n        \"timestamps\": {\n            \"createdAt\": \"1738574012\",\n            \"updatedAt\": \"1741012928\",\n            \"lastLogin\": \"1741012928\",\n            \"lastTokenRefresh\": \"1738590184\",\n            \"lastPasswordChange\": \"1738590240\"\n        },\n        \"profiles\": [\n            {\n                \"id\": \"67a088bc2e0135120891b3be\",\n                \"alias\": \"k****@orbyta.it\",\n                \"consentConfirmedAt\": \"1738574012\",\n                \"avatarId\": \"default\",\n                \"mainProfile\": true\n            }\n        ],\n        \"contactPreferences\": {\n            \"subscribedToNewsletter\": true,\n            \"sendNewsletterTo\": [\n                \"67a088bc2e0135120891b3bf\"\n            ],\n            \"subscribedToWeekly\": true,\n            \"receiveWeeklyMessageDayOfWeek\": 6\n        },\n        \"contactInfos\": [\n            {\n                \"id\": \"67a088bc2e0135120891b3bf\",\n                \"type\": \"email\",\n                \"email\": \"klejdi.kristo@orbyta.it\"\n            }\n        ]\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "User Management",
+			"item": [
+				{
+					"name": "Add Phone",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"newPhone\": \"+393930238386\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{participant_url}}/v1/user/contact/add-phone",
+							"host": [
+								"{{participant_url}}"
+							],
+							"path": [
+								"v1",
+								"user",
+								"contact",
+								"add-phone"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Missing Argument",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"newPhone\": \"3455\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{participant_url}}/v1/user/contact/add-phone",
+									"host": [
+										"{{participant_url}}"
+									],
+									"path": [
+										"v1",
+										"user",
+										"contact",
+										"add-phone"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 03 Mar 2025 14:46:22 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "28"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": \"missing argument\"\n}"
+						},
+						{
+							"name": "Phone not valid",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"newPhone\": \"3455\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{participant_url}}/v1/user/contact/add-phone",
+									"host": [
+										"{{participant_url}}"
+									],
+									"path": [
+										"v1",
+										"user",
+										"contact",
+										"add-phone"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 03 Mar 2025 15:04:19 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "27"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": \"phone not valid\"\n}"
+						},
+						{
+							"name": "New Phone",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"newPhone\": \"+393930238386\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{participant_url}}/v1/user/contact/add-phone",
+									"host": [
+										"{{participant_url}}"
+									],
+									"path": [
+										"v1",
+										"user",
+										"contact",
+										"add-phone"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 03 Mar 2025 15:05:09 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "843"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"67a088bc301d2538dd2df395\",\n    \"account\": {\n        \"type\": \"email\",\n        \"accountId\": \"klejdi.kristo@orbyta.it\",\n        \"accountConfirmedAt\": \"1\",\n        \"preferredLanguage\": \"it\"\n    },\n    \"roles\": [\n        \"PARTICIPANT\",\n        \"ADMIN\"\n    ],\n    \"timestamps\": {\n        \"createdAt\": \"1738574012\",\n        \"updatedAt\": \"1741014309\",\n        \"lastLogin\": \"1741014302\",\n        \"lastTokenRefresh\": \"1738590184\",\n        \"lastPasswordChange\": \"1738590240\"\n    },\n    \"profiles\": [\n        {\n            \"id\": \"67a088bc2e0135120891b3be\",\n            \"alias\": \"k****@orbyta.it\",\n            \"consentConfirmedAt\": \"1738574012\",\n            \"avatarId\": \"default\",\n            \"mainProfile\": true\n        }\n    ],\n    \"contactPreferences\": {\n        \"subscribedToNewsletter\": true,\n        \"sendNewsletterTo\": [\n            \"67a088bc2e0135120891b3bf\"\n        ],\n        \"subscribedToWeekly\": true,\n        \"receiveWeeklyMessageDayOfWeek\": 6\n    },\n    \"contactInfos\": [\n        {\n            \"id\": \"67a088bc2e0135120891b3bf\",\n            \"type\": \"email\",\n            \"email\": \"klejdi.kristo@orbyta.it\"\n        },\n        {\n            \"id\": \"67c5c525531e5a6fcc3d53c0\",\n            \"type\": \"phone\",\n            \"phone\": \"+393930238386\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Change Phone",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"newPhone\": \"+393930238999\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{participant_url}}/v1/user/contact/change-phone",
+							"host": [
+								"{{participant_url}}"
+							],
+							"path": [
+								"v1",
+								"user",
+								"contact",
+								"change-phone"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Changed Phone",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"newPhone\": \"+393930238999\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{participant_url}}/v1/user/contact/change-phone",
+									"host": [
+										"{{participant_url}}"
+									],
+									"path": [
+										"v1",
+										"user",
+										"contact",
+										"change-phone"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 04 Mar 2025 09:55:43 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "817"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"67a088bc301d2538dd2df395\",\n    \"account\": {\n        \"type\": \"email\",\n        \"accountId\": \"klejdi.kristo@orbyta.it\",\n        \"accountConfirmedAt\": \"1\",\n        \"preferredLanguage\": \"it\"\n    },\n    \"roles\": [\n        \"PARTICIPANT\",\n        \"ADMIN\"\n    ],\n    \"timestamps\": {\n        \"createdAt\": \"1738574012\",\n        \"updatedAt\": \"1741082143\",\n        \"lastLogin\": \"1741082143\",\n        \"lastTokenRefresh\": \"1738590184\",\n        \"lastPasswordChange\": \"1738590240\"\n    },\n    \"profiles\": [\n        {\n            \"id\": \"67a088bc2e0135120891b3be\",\n            \"alias\": \"k****@orbyta.it\",\n            \"consentConfirmedAt\": \"1738574012\",\n            \"avatarId\": \"default\",\n            \"mainProfile\": true\n        }\n    ],\n    \"contactPreferences\": {\n        \"subscribedToNewsletter\": true,\n        \"sendNewsletterTo\": [\n            \"67a088bc2e0135120891b3bf\"\n        ],\n        \"subscribedToWeekly\": true,\n        \"receiveWeeklyMessageDayOfWeek\": 6\n    },\n    \"contactInfos\": [\n        {\n            \"id\": \"67a088bc2e0135120891b3bf\",\n            \"type\": \"email\",\n            \"email\": \"klejdi.kristo@orbyta.it\"\n        },\n        {\n            \"id\": \"67c6ce1f9d54efb82d6bc53e\",\n            \"type\": \"phone\",\n            \"phone\": \"+393930238999\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "Phone not valid",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"newPhone\": \"+sadfsd\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{participant_url}}/v1/user/contact/change-phone",
+									"host": [
+										"{{participant_url}}"
+									],
+									"path": [
+										"v1",
+										"user",
+										"contact",
+										"change-phone"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 04 Mar 2025 09:56:28 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "27"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": \"phone not valid\"\n}"
+						},
+						{
+							"name": "Missing Argument",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{participant_url}}/v1/user/contact/change-phone",
+									"host": [
+										"{{participant_url}}"
+									],
+									"path": [
+										"v1",
+										"user",
+										"contact",
+										"change-phone"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 04 Mar 2025 09:56:51 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "28"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": \"missing argument\"\n}"
+						},
+						{
+							"name": "No Phone Number to Edit",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"newPhone\": \"+393930238999\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{participant_url}}/v1/user/contact/change-phone",
+									"host": [
+										"{{participant_url}}"
+									],
+									"path": [
+										"v1",
+										"user",
+										"contact",
+										"change-phone"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 04 Mar 2025 10:06:09 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "44"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": \"user has no phone number to edit\"\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{authToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"pm.sendRequest({\r",
+					"    url: 'http://localhost:3232/v1/auth/login-with-email',\r",
+					"    method: 'POST',\r",
+					"    header: {\r",
+					"        'Content-Type': 'application/json'\r",
+					"    },\r",
+					"    body: {\r",
+					"        mode: 'raw',\r",
+					"        raw: JSON.stringify({\r",
+					"            email:\"klejdi.kristo@orbyta.it\",\r",
+					"            password:\"Orbyta12345.\",\r",
+					"            instanceId:\"italy\",\r",
+					"            verificationCode:\"\"\r",
+					"            })\r",
+					"    }\r",
+					"}, function (err, res) {\r",
+					"    if (err) {\r",
+					"        console.log('Login request failed:', err);\r",
+					"    } else {\r",
+					"        let jsonResponse = res.json();\r",
+					"        let token = jsonResponse.token.accessToken;\r",
+					"\r",
+					"        if (token) {\r",
+					"            pm.environment.set('authToken', token);\r",
+					"            console.log('Token stored successfully:', token);\r",
+					"        } else {\r",
+					"            console.log('Token not found in response');\r",
+					"        }\r",
+					"    }\r",
+					"});\r",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "participant_url",
+			"value": "http://localhost:3231",
+			"type": "string"
+		}
+	]
+}
