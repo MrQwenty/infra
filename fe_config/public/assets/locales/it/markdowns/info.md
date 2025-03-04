@@ -1,1 +1,1 @@
-Qui trovi la tua sezione Info
+Your info content goes here.

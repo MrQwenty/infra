@@ -1,1 +1,1 @@
-Qui trovi la tua sezione Results
+Your results go here.

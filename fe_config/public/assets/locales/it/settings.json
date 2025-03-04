@@ -1,16 +1,16 @@
 {
   "title": "Settings",
   "account": {
-    "title": "Suca Account settings",
+    "title": " Account settings",
     "email": {
       "title": "Email address",
       "info": "Do you want to use a different email address? Change your email address by clicking on the button below. Note: you cannot log back in until you have confirmed the email address."
     },
     "phone": {
       "title": "Phone number",
+      "infoAdd": "Add your phone number by clicking on the button below.",
       "btn": "Add phone number",
       "deleteBtn": "Delete phone number",
-      "infoAdd": "Add your phone number by clicking on the button below.",
       "info": "Do you want to use a different phone number? Change your phone number by clicking on the button below. Note: you cannot log back in until you have confirmed the phone number."
     },
     "password": {

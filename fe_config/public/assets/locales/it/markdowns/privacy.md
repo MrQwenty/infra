@@ -1,1 +1,1 @@
-Qui trovi la tua sezione Privacy
+Your full privacy policy goes here
