@@ -38,10 +38,10 @@
     "passwordInputPlaceholder": "Enter Password",
     "confirmPasswordInputLabel": "Confirm Password",
     "confirmPasswordInputPlaceholder": "Enter Password Again",
-    "phoneInputLabel": "Phone Number",
-    "phoneInputPlaceholder": "Enter Phone Number",
     "informedConsentCheckbox": "Access the <1>privacy statement</1>.*",
     "reCaptchaCookieCheckbox": "Access <1>reCAPTCHA statement</1>.*",
+    "phoneInputLabel": "Phone Number",
+    "phoneInputPlaceholder": "Enter Phone Number",
     "signupBtn": "Sign up",
     "loginLink": "Have an account already? Login in here.",
     "reCaptchaLinks": "This site is protected by reCAPTCHA and the Google <1>Privacy Policy</1> and <3>Terms of Service</3> apply.",
@@ -116,29 +116,6 @@
       "btn": "Ok"
     }
   },
-  "changePassword": {
-    "title": "Change password",
-    "currentPasswordInputLabel": "Current password",
-    "currentPasswordInputPlaceholder": "Current password",
-    "newPasswordInputLabel": "New password",
-    "newPasswordInputPlaceholder": "New password",
-    "confirmPasswordInputLabel": "Confirm new password",
-    "confirmPasswordInputPlaceholder": "Confirm new password",
-    "info": "For security reasons, you must first provide your current password.",
-    "cancelBtn": "Cancel",
-    "confirmBtn": "Confirm",
-    "errors": {
-      "wrongCurrentPassword": "Wrong password",
-      "passwordRules": "Your password must have at least 8 characters and contain 3 of the following 4 elements: lowercase letters, capital letters, numbers, punctuation marks.",
-      "passwordMatch": "The passwords are not the same",
-      "unknown": "Something has gone wrong. Check your information or try again later."
-    },
-    "successDialog": {
-      "title": "Password changed",
-      "content": "Success! Your password has been changed",
-      "btn": "Ok"
-    }
-  },
   "changePhone": {
     "title" : "Change phone number",
     "phoneInputLabel": "New phone number",
@@ -186,6 +163,29 @@
       "btn": "Ok"
     }
   }, 
+  "changePassword": {
+    "title": "Change password",
+    "currentPasswordInputLabel": "Current password",
+    "currentPasswordInputPlaceholder": "Current password",
+    "newPasswordInputLabel": "New password",
+    "newPasswordInputPlaceholder": "New password",
+    "confirmPasswordInputLabel": "Confirm new password",
+    "confirmPasswordInputPlaceholder": "Confirm new password",
+    "info": "For security reasons, you must first provide your current password.",
+    "cancelBtn": "Cancel",
+    "confirmBtn": "Confirm",
+    "errors": {
+      "wrongCurrentPassword": "Wrong password",
+      "passwordRules": "Your password must have at least 8 characters and contain 3 of the following 4 elements: lowercase letters, capital letters, numbers, punctuation marks.",
+      "passwordMatch": "The passwords are not the same",
+      "unknown": "Something has gone wrong. Check your information or try again later."
+    },
+    "successDialog": {
+      "title": "Password changed",
+      "content": "Success! Your password has been changed",
+      "btn": "Ok"
+    }
+  },
   "manageProfiles": {
     "title": "Profiles",
     "mainProfileLabel": "Me",

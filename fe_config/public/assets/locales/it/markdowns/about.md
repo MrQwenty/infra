@@ -1,1 +1,1 @@
-Qui trovi la tua sezione About
+Your about section content goes here

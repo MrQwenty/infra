@@ -1,1 +1,1 @@
-Qui trovi la tua sezione Sponsors
+Your sponsors go here

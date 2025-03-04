@@ -1,0 +1,81 @@
+{
+  "title": "Home",
+  "loginCard": {
+    "title": "Login",
+    "info": "",
+    "emailInputLabel": "Email",
+    "emailInputPlaceholder": "Enter Email",
+    "passwordInputLabel": "Password",
+    "passwordInputPlaceholder": "Enter Password",
+    "rememberMeLabel": "Remember Me",
+    "btn": "Login",
+    "passwordForgottenBtn": "Forgot password?",
+    "signupBtn": "Don't yet have an account? Sign up here."
+  },
+  "logoCredits": {
+    "title": "Our Supporters"
+  },
+  "currentResultCard": {
+    "imageAlt": "Results image",
+    "title": "Results",
+    "body": "Take a look at our current results.",
+    "actionLabel": "Results"
+  },
+  "signupCard": {
+    "imageAlt": "Participate image",
+    "title": "Participate",
+    "body": "Participate in the surveys.",
+    "actionLabel": "Sign up"
+  },
+  "aboutCard": {
+    "imageAlt": "About image",
+    "title": "About",
+    "body": "Find more about us.",
+    "actionLabel": "Learn more"
+  },
+  "infoCard": {
+    "imageAlt": "Info image",
+    "title": "Info",
+    "body": "Additional information",
+    "actionLabel": "Learn more"
+  },
+  "newsCard": {
+    "imageAlt": "News image",
+    "title": "News",
+    "body": "Take a look at our latest news.",
+    "actionLabel": "Learn more"
+  },
+  "references": {
+    "title": "Read More",
+    "faqLink": "FAQ",
+    "aboutLink": "About",
+    "resultsLink": "Results"
+  },
+  "settingsReferences": {
+    "title": "Quick Settings",
+    "profileSettings": "Manage Profiles",
+    "communicationSettings": "Email Reminders",
+    "languageSettings": "Languages"
+  },
+  "supportReferences": {
+    "title": "Support us",
+    "supportLink": "Information"
+  },
+  "surveyList": {
+    "requiredSurveys": {
+      "title": "Questionnaires to be completed",
+      "info": "The different questionnaires for the study can be found here.",
+      "successMsg": "Thank you! You have completed all questionnaires. We hope to hear from you again next week. In case you want to provide new information sooner, you can retake the questionnaire in few hours."
+    },
+    "optionalSurveys": {
+      "title": "Change background information",
+      "info": "If your situation has changed, you can recomplete the background questionnaire(s) below.  Unfortunately, we cannot show you the information you entered last time, or let you change your answers to specific questions only.",
+      "hideBtn": "Hide",
+      "showBtn": "Has your background information changed?"
+    }
+  },
+  "teaserImage": {
+    "title": "Welcome",
+    "content": "Get started by signing up to participate in the study"
+  }
+}

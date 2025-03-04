@@ -1,1 +1,1 @@
-Qui trovi la tua sezione Contact
+Your contact information goes here

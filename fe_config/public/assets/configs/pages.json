@@ -322,7 +322,7 @@
                   "itemKey": "account",
                   "config": {
                     "type": "accountSettings",
-                    "allowProfileSettings": true
+                    "allowProfileSettings": false
                   }
                 },
                 {

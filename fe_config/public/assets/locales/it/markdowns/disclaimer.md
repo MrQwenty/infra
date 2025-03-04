@@ -1,1 +1,1 @@
-Qui trovi la tua sezione Disclaimer
+Your disclaimer goes here.

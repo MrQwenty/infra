@@ -1,1 +1,1 @@
-Qui trovi la tua sezione Privacy Consent
+Sign up Privacy consent goes here

@@ -1,1 +1,1 @@
-Qui trovi la tua sezione Accessibility
+Your accessibility content goes here.
