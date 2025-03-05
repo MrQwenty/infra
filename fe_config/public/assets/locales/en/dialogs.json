@@ -236,12 +236,17 @@
     }
   },
   "changeNotifications": {
-    "title": "Email settings",
-    "info": "You can opt to stop receiving the weekly reminder email or the newsletter.",
+    "title": "Communication settings",
+    "info": "You can opt to stop receiving the weekly reminder communication by email and phone or the newsletter.",
     "weeklyReminder": {
       "label": "Weekly reminder email",
       "on": "I would like to receive the weekly reminder email",
       "off": "Don't receive the weekly reminder email"
+    },
+    "weeklyReminderPhone": {
+      "label": "Weekly reminder phone",
+      "on": "I would like to receive the weekly reminder phone",
+      "off": "Don't receive the weekly reminder phone"
     },
     "newsletter": {
       "label": "Email to all participants. Sometimes it will be necessary to send an email to all participants with information about the study.",
@@ -250,11 +255,15 @@
     },
     "cancelBtn": "Cancel",
     "submitBtn": "Submit",
+    "phoneNotConfirmed": "You have not yet confirmed your phone number. Please confirm your phone number first.",
     "successDialog": {
       "title": "Settings are changed",
-      "content": "Done! Your email setting are changed.",
+      "content": "Done! Your email/phone settings are changed.",
       "btn": "Ok"
-    }
+    },
+    "addPhone": "Add phone number",
+    "verifyPhone": "Verify phone number"
+
   },
   "deleteAccount": {
     "title": "Withdraw from study",
