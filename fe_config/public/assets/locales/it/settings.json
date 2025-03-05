@@ -28,8 +28,8 @@
   "communication": {
     "title": "Communication settings",
     "emailReminders": {
-      "title": "Weekly email and newsletter",
-      "info": "You can opt to stop receiving the weekly reminder email or the newsletter.",
+      "title": "Weekly email/phone and newsletter",
+      "info": "You can opt to stop receiving the weekly reminder email/phone or the newsletter.",
       "btnManageNotifications": "Change settings"
     },
     "defaultLanguage": {
