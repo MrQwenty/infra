@@ -128,7 +128,7 @@ services:
       GLOBAL_DB_CONNECTION_PREFIX:
       # should be secret:
       GLOBAL_DB_USERNAME: admin
-      GLOBAL_DB_PASSWORD: rooot
+      GLOBAL_DB_PASSWORD: root
 
       MESSAGE_DB_CONNECTION_STR: mongodb:27017/
       MESSAGE_DB_CONNECTION_PREFIX:

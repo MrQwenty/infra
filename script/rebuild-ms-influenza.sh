@@ -32,8 +32,8 @@ if [[ " ${SELECTED_SERVICES[*]} " == *"participant-webapp"* || " ${SELECTED_SERV
 
     cd fe_config || { echo "Error: fe_config directory not found."; exit 1; }
 
-    cp ".env.local" "../../participant-webapp/"
-    echo "Copied .env.local to participant-webapp."
+    cp ".env.development.local" "../../participant-webapp/"
+    echo "Copied .env.development.local to participant-webapp."
 
     cp -r "public" "../../participant-webapp/"
     echo "Copied public dir to participant-webapp."
