@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 
 import { dialogActions } from '../../../store/dialogSlice';
 import { userActions } from '../../../store/userSlice';
-import { getUserReq } from '../../../api/userAPI';
+import { getUserReq, addPhoneReq } from '../../../api/userAPI';
 
 interface AddPhoneProps {
   onClose: () => void;
