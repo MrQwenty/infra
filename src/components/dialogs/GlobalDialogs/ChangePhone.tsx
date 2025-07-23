@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 
 import { dialogActions } from '../../../store/dialogSlice';
 import { userActions } from '../../../store/userSlice';
-import { getUserReq } from '../../../api/userAPI';
+import { getUserReq, changePhoneReq } from '../../../api/userAPI';
 
 interface ChangePhoneProps {
   onClose: () => void;
@@ -33,37 +33,24 @@ const ChangePhone: React.FC<ChangePhoneProps> = ({ onClose }) => {
     setError('');
 
     try {
-      const response = await fetch('/v1/user/phone/change', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          newPhoneNumber: formData.newPhone
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to change phone number');
-      }
-
-      const data = await response.json();
-
-      if (data.success) {
-            if (data.user) {
-              dispatch(userActions.setUser(data.user));
-            } else {
-              const userData = (await getUserReq()).data;
-              dispatch(userActions.setUser(userData));
-            }
-      }
+      const response = await changePhoneReq(formData.newPhone);
+      if (response.success) {
+        if (response.user) {
+          dispatch(userActions.setUser(response.user));
+        } else {
+          const userData = (await getUserReq()).data;
+          dispatch(userActions.setUser(userData));
+        }
         dispatch(dialogActions.openVerifyWhatsAppDialog({
           type: 'verifyWhatsApp',
           payload: {
             phoneNumber: formData.newPhone,
-            token: data.verificationToken || '',
+            token: response.data.verificationToken || '',
           }
         }))
+      } else {
+        setError(response.error || 'Failed to change phone number');
+      }
     } catch (e: any) {
       setError(e.message || 'An error occurred');
     } finally {

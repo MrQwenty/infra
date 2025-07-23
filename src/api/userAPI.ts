@@ -1,3 +1,5 @@
+import { apiBase } from '../constants';
+
 export interface User {
   id: string;
   email: string;
@@ -8,10 +10,12 @@ export interface ApiResponse<T> {
   success: boolean;
   data: T;
   message?: string;
+  error?: string;
+  user?: User;
 }
 
 export const getUserReq = async (): Promise<ApiResponse<User>> => {
-  const response = await fetch('/v1/user/profile', {
+  const response = await fetch(`${apiBase}/user/profile`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -25,8 +29,8 @@ export const getUserReq = async (): Promise<ApiResponse<User>> => {
   return response.json();
 };
 
-export const addPhoneNumber = async (phoneNumber: string): Promise<ApiResponse<{ verificationToken: string }>> => {
-  const response = await fetch('/v1/user/phone/add', {
+export const addPhoneReq = async (phoneNumber: string): Promise<ApiResponse<{ verificationToken: string }>> => {
+  const response = await fetch(`${apiBase}/user/phone/add`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -41,8 +45,8 @@ export const addPhoneNumber = async (phoneNumber: string): Promise<ApiResponse<{
   return response.json();
 };
 
-export const changePhoneNumber = async (newPhoneNumber: string): Promise<ApiResponse<{ verificationToken: string }>> => {
-  const response = await fetch('/v1/user/phone/change', {
+export const changePhoneReq = async (newPhoneNumber: string): Promise<ApiResponse<{ verificationToken: string }>> => {
+  const response = await fetch(`${apiBase}/user/phone/change`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -57,8 +61,8 @@ export const changePhoneNumber = async (newPhoneNumber: string): Promise<ApiResp
   return response.json();
 };
 
-export const verifyWhatsApp = async (token: string, code: string): Promise<ApiResponse<{}>> => {
-  const response = await fetch('/v1/user/whatsapp-verification/verify', {
+export const verifyWhatsAppReq = async (token: string, code: string): Promise<ApiResponse<{}>> => {
+  const response = await fetch(`${apiBase}/user/whatsapp-verification/verify`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -73,8 +77,8 @@ export const verifyWhatsApp = async (token: string, code: string): Promise<ApiRe
   return response.json();
 };
 
-export const resendWhatsAppCode = async (phoneNumber: string, token: string): Promise<ApiResponse<{}>> => {
-  const response = await fetch('/v1/user/whatsapp-verification/send', {
+export const resendWhatsAppCodeReq = async (phoneNumber: string, token: string): Promise<ApiResponse<{}>> => {
+  const response = await fetch(`${apiBase}/user/whatsapp-verification/send`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

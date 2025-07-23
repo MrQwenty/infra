@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 
 import { dialogActions } from '../../../store/dialogSlice';
+import { verifyWhatsAppReq, resendWhatsAppCodeReq } from '../../../api/userAPI';
 
 interface VerifyWhatsAppProps {
   phoneNumber: string;
@@ -28,24 +29,9 @@ const VerifyWhatsApp: React.FC<VerifyWhatsAppProps> = ({ phoneNumber, token, onC
     setError('');
 
     try {
-      const response = await fetch('/v1/user/whatsapp-verification/verify', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          token,
-          code: verificationCode
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error('Verification failed');
-      }
-
-      const data = await response.json();
+      const response = await verifyWhatsAppReq(token, verificationCode);
       
-      if (data.success) {
+      if (response.success) {
         dispatch(dialogActions.closeDialog());
       } else {
         setError(t('verifyWhatsApp.errors.verificationFailed'));
@@ -62,19 +48,9 @@ const VerifyWhatsApp: React.FC<VerifyWhatsAppProps> = ({ phoneNumber, token, onC
     setError('');
 
     try {
-      const response = await fetch('/v1/user/whatsapp-verification/send', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          phoneNumber,
-          token
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to resend code');
+      const response = await resendWhatsAppCodeReq(phoneNumber, token);
+      if (!response.success) {
+        setError(t('verifyWhatsApp.errors.resendFailed'));
       }
     } catch (err) {
       setError(t('verifyWhatsApp.errors.resendFailed'));

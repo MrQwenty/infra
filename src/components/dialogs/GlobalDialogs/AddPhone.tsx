@@ -33,34 +33,25 @@ const AddPhone: React.FC<AddPhoneProps> = ({ onClose }) => {
     setError('');
 
     try {
-      const response = await fetch('/v1/user/phone/add', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          phoneNumber: formData.newPhone
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to add phone number');
-      }
-
-      const data = await response.json();
-
-      if (data.success) {
-        const userData = (await getUserReq()).data;
-        dispatch(userActions.setUser(userData));
-      }
+      const response = await addPhoneReq(formData.newPhone);
+      if (response.success) {
+        if (response.user) {
+          dispatch(userActions.setUser(response.user));
+        } else {
+          const userData = (await getUserReq()).data;
+          dispatch(userActions.setUser(userData));
+        }
         dispatch(dialogActions.openVerifyWhatsAppDialog({
           type: 'verifyWhatsApp',
           payload: {
             phoneNumber: formData.newPhone,
-            token: data.verificationToken || '',
+            token: response.data.verificationToken || '',
           }
         }))
 
+      } else {
+        setError(response.error || 'Failed to add phone number');
+      }
     } catch (e: any) {
       setError(e.message || 'An error occurred');
     } finally {
