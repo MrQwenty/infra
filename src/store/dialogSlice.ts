@@ -1,4 +1,20 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+interface PayloadAction<T = any> {
+  payload: T;
+  type: string;
+}
+
+function createSlice(config: any) {
+  return {
+    actions: config.reducers,
+    reducer: (state: any, action: any) => {
+      const reducer = config.reducers[action.type];
+      if (reducer) {
+        reducer(state, action);
+      }
+      return state;
+    }
+  };
+}
 
 export interface DialogState {
   isOpen: boolean;

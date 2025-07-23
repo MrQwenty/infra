@@ -1,4 +1,8 @@
-import { User } from '../types/user';
+export interface User {
+  id: string;
+  email: string;
+  phoneNumber?: string;
+}
 
 export interface ApiResponse<T> {
   success: boolean;
