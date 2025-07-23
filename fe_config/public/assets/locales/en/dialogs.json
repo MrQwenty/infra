@@ -154,7 +154,10 @@
     },
     "warningDialog": {
       "title": "Confirm new phone number",
-      "content": "Note: you cannot log back in to Infectieradar.be until you have confirmed the new phone number via the SMS that we have sent you.",
+      "content": "Note: you cannot log back in to Infectieradar.be until you have confirmed the new phone number via SMS or WhatsApp that we have sent you.",
+      "verificationMethodLabel": "Verification method",
+      "smsOption": "SMS verification",
+      "whatsappOption": "WhatsApp verification",
       "cancelBtn": "Cancel",
       "confirmBtn": "Confirm"
     },
@@ -177,6 +180,10 @@
     },
     "warningDialog": {
       "title": "Confirm phone number",
+      "content": "Choose how you want to verify your phone number.",
+      "verificationMethodLabel": "Verification method",
+      "smsOption": "SMS verification",
+      "whatsappOption": "WhatsApp verification",
       "cancelBtn": "Cancel",
       "confirmBtn": "Confirm"
     },
@@ -285,6 +292,22 @@
       "title": "Phone number deleted",
       "content": "Done! Your phone number has been deleted.",
       "btn": "Ok"
+    }
+  },
+  "verifyWhatsApp": {
+    "title": "Verify WhatsApp",
+    "description": "We sent a verification code to {{phoneNumber}} via WhatsApp. Please enter the code below.",
+    "codeInputLabel": "Verification Code",
+    "codeInputPlaceholder": "Enter 6-digit code",
+    "verifyBtn": "Verify",
+    "verifying": "Verifying...",
+    "resendBtn": "Resend Code",
+    "resending": "Resending...",
+    "cancelBtn": "Cancel",
+    "errors": {
+      "codeRequired": "Please enter the verification code",
+      "verificationFailed": "Verification failed. Please check your code and try again.",
+      "resendFailed": "Failed to resend verification code. Please try again."
     }
   }
 }
