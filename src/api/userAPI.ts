@@ -15,10 +15,12 @@ export interface ApiResponse<T> {
 }
 
 export const getUserReq = async (): Promise<ApiResponse<User>> => {
+  const token = localStorage.getItem('authToken') || '';
   const response = await fetch(`${apiBase}/user/profile`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': token,
     },
   });
 
@@ -30,10 +32,12 @@ export const getUserReq = async (): Promise<ApiResponse<User>> => {
 };
 
 export const addPhoneReq = async (phoneNumber: string): Promise<ApiResponse<{ verificationToken: string }>> => {
+  const token = localStorage.getItem('authToken') || '';
   const response = await fetch(`${apiBase}/user/phone/add`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': token,
     },
     body: JSON.stringify({ phoneNumber }),
   });
@@ -46,10 +50,12 @@ export const addPhoneReq = async (phoneNumber: string): Promise<ApiResponse<{ ve
 };
 
 export const changePhoneReq = async (newPhoneNumber: string): Promise<ApiResponse<{ verificationToken: string }>> => {
+  const token = localStorage.getItem('authToken') || '';
   const response = await fetch(`${apiBase}/user/phone/change`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': token,
     },
     body: JSON.stringify({ newPhoneNumber }),
   });
@@ -62,10 +68,12 @@ export const changePhoneReq = async (newPhoneNumber: string): Promise<ApiRespons
 };
 
 export const verifyWhatsAppReq = async (token: string, code: string): Promise<ApiResponse<{}>> => {
+  const authToken = localStorage.getItem('authToken') || '';
   const response = await fetch(`${apiBase}/user/whatsapp-verification/verify`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': authToken,
     },
     body: JSON.stringify({ token, code }),
   });
@@ -78,10 +86,12 @@ export const verifyWhatsAppReq = async (token: string, code: string): Promise<Ap
 };
 
 export const resendWhatsAppCodeReq = async (phoneNumber: string, token: string): Promise<ApiResponse<{}>> => {
+  const authToken = localStorage.getItem('authToken') || '';
   const response = await fetch(`${apiBase}/user/whatsapp-verification/send`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': authToken,
     },
     body: JSON.stringify({ phoneNumber, token }),
   });

@@ -2,6 +2,8 @@ package service
 
 import (
 	"context"
+	"crypto/rand"
+	"encoding/hex"
 	"fmt"
 	"log"
 	"time"
@@ -41,12 +43,14 @@ func (s *userManagementServer) AddPhoneNumber(ctx context.Context, req *api.AddP
 		return nil, status.Error(codes.Internal, "failed to generate verification token")
 	}
 
+	verificationCode := s.generateVerificationCode()
+
 	err = s.userDBservice.AddPhoneNumber(instanceID, userID, req.PhoneNumber, verificationToken)
 	if err != nil {
 		return nil, status.Error(codes.Internal, err.Error())
 	}
 
-	err = s.sendWhatsAppVerification(req.PhoneNumber, verificationToken)
+	err = s.sendWhatsAppVerification(req.PhoneNumber, verificationCode)
 	if err != nil {
 		log.Printf("Error sending WhatsApp verification: %v", err)
 	}
@@ -86,12 +90,14 @@ func (s *userManagementServer) EditPhoneNumber(ctx context.Context, req *api.Edi
 		return nil, status.Error(codes.Internal, "failed to generate verification token")
 	}
 
+	verificationCode := s.generateVerificationCode()
+
 	err = s.userDBservice.UpdatePhoneNumber(instanceID, userID, req.NewPhoneNumber, verificationToken)
 	if err != nil {
 		return nil, status.Error(codes.Internal, err.Error())
 	}
 
-	err = s.sendWhatsAppVerification(req.NewPhoneNumber, verificationToken)
+	err = s.sendWhatsAppVerification(req.NewPhoneNumber, verificationCode)
 	if err != nil {
 		log.Printf("Error sending WhatsApp verification: %v", err)
 	}
@@ -103,9 +109,27 @@ func (s *userManagementServer) EditPhoneNumber(ctx context.Context, req *api.Edi
 }
 
 func (s *userManagementServer) generateVerificationToken() (string, error) {
-	return fmt.Sprintf("whatsapp_%d", time.Now().Unix()), nil
+	bytes := make([]byte, 16)
+	if _, err := rand.Read(bytes); err != nil {
+		return "", err
+	}
+	return fmt.Sprintf("whatsapp_%s_%d", hex.EncodeToString(bytes), time.Now().Unix()), nil
 }
 
-func (s *userManagementServer) sendWhatsAppVerification(phoneNumber, token string) error {
+func (s *userManagementServer) generateVerificationCode() string {
+	bytes := make([]byte, 3)
+	rand.Read(bytes)
+	code := ""
+	for _, b := range bytes {
+		code += fmt.Sprintf("%02d", int(b)%100)
+	}
+	return code[:6]
+}
+
+func (s *userManagementServer) sendWhatsAppVerification(phoneNumber, code string) error {
+	message := fmt.Sprintf("Your InfluenzaNet verification code is: %s", code)
+	
+	log.Printf("Sending WhatsApp verification to %s: %s", phoneNumber, message)
+	
 	return nil
 }
