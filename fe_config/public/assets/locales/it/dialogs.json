@@ -130,10 +130,13 @@
       "unknown": "Something has gone wrong. Check your information or try again later."
     },
     "warningDialog": {
-      "title": "Confirm new phone number",
-      "content": "Note: you cannot log back in to Infectieradar.be until you have confirmed the new phone number via the SMS that we have sent you.",
-      "cancelBtn": "Cancel",
-      "confirmBtn": "Confirm"
+      "title": "Conferma nuovo numero di telefono",
+      "content": "Nota: non potrai accedere a Infectieradar.be finché non avrai confermato il nuovo numero di telefono tramite SMS o WhatsApp che ti abbiamo inviato.",
+      "verificationMethodLabel": "Metodo di verifica",
+      "smsOption": "Verifica SMS",
+      "whatsappOption": "Verifica WhatsApp",
+      "cancelBtn": "Annulla",
+      "confirmBtn": "Conferma"
     },
     "successDialog": {
       "title": "Phone number changed",
@@ -153,9 +156,13 @@
       "unknown": "Something has gone wrong. Check your information or try again later."
     },
     "warningDialog": {
-      "title": "Confirm phone number",
-      "cancelBtn": "Cancel",
-      "confirmBtn": "Confirm"
+      "title": "Conferma numero di telefono",
+      "content": "Scegli come vuoi verificare il tuo numero di telefono.",
+      "verificationMethodLabel": "Metodo di verifica",
+      "smsOption": "Verifica SMS",
+      "whatsappOption": "Verifica WhatsApp",
+      "cancelBtn": "Annulla",
+      "confirmBtn": "Conferma"
     },
     "successDialog": {
       "title": "Phone number added",
@@ -285,6 +292,22 @@
       "title": "Phone number deleted",
       "content": "Done! Your phone number has been deleted.",
       "btn": "Ok"
+    }
+  },
+  "verifyWhatsApp": {
+    "title": "Verifica WhatsApp",
+    "description": "Abbiamo inviato un codice di verifica a {{phoneNumber}} tramite WhatsApp. Inserisci il codice qui sotto.",
+    "codeInputLabel": "Codice di Verifica",
+    "codeInputPlaceholder": "Inserisci codice a 6 cifre",
+    "verifyBtn": "Verifica",
+    "verifying": "Verificando...",
+    "resendBtn": "Reinvia Codice",
+    "resending": "Reinviando...",
+    "cancelBtn": "Annulla",
+    "errors": {
+      "codeRequired": "Inserisci il codice di verifica",
+      "verificationFailed": "Verifica fallita. Controlla il codice e riprova.",
+      "resendFailed": "Impossibile reinviare il codice di verifica. Riprova."
     }
   }
 }

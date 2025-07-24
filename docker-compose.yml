@@ -68,6 +68,29 @@ services:
     depends_on:
       - logging-service
       - mongodb
+  whatsapp-client-service:
+    build:
+      context: ../messaging-service
+      dockerfile: build/docker/whatsapp-client-service/Dockerfile
+    container_name: whatsapp-client-service
+    restart: always
+    ports:
+      - "5007:5007"
+    environment:
+      LOG_LEVEL: debug
+      MONGODB_URI: mongodb:27017/
+      MESSAGING_CONFIG_FOLDER: /config
+      WHATSAPP_CLIENT_SERVICE_LISTEN_PORT: 5007
+      WHATSAPP_API_TOKEN: ${WHATSAPP_API_TOKEN}
+      WHATSAPP_PHONE_NUMBER_ID: ${WHATSAPP_PHONE_NUMBER_ID}
+    networks:
+      influenza-network: null
+    volumes:
+      - whatsapp_client_service_data:/data
+      - ./config:/config
+    depends_on:
+      - logging-service
+      - mongodb
   message-scheduler:
     build:
       context: ../messaging-service
@@ -144,6 +167,7 @@ services:
       ADDR_USER_MANAGEMENT_SERVICE: user-management-service:5002
       ADDR_STUDY_SERVICE: study-service:5003
       ADDR_EMAIL_CLIENT_SERVICE: email-client-service:5005
+      ADDR_WHATSAPP_CLIENT_SERVICE: whatsapp-client-service:5007
       ADDR_LOGGING_SERVICE: logging-service:5006
 
       MESSAGING_SERVICE_LISTEN_PORT: 5004
@@ -379,6 +403,7 @@ volumes:
   mongodb_data: {}
   logging_data: {}
   email_client_service_data: {}
+  whatsapp_client_service_data: {}
   message_scheduler_data: {}
   messaging_service_data: {}
   user_management_service_data: {}

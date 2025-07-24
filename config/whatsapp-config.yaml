@@ -1,0 +1,23 @@
+apiVersion: v1
+whatsapp:
+  baseUrl: "https://graph.facebook.com/v18.0"
+  phoneNumberId: "${WHATSAPP_PHONE_NUMBER_ID}"
+  accessToken: "${WHATSAPP_API_TOKEN}"
+  webhookVerifyToken: "${WHATSAPP_WEBHOOK_VERIFY_TOKEN}"
+  messageTemplates:
+    phoneVerification:
+      name: "phone_verification"
+      language: "en"
+      components:
+        - type: "body"
+          parameters:
+            - type: "text"
+              text: "{{verification_code}}"
+    phoneVerificationIt:
+      name: "phone_verification_it"
+      language: "it"
+      components:
+        - type: "body"
+          parameters:
+            - type: "text"
+              text: "{{verification_code}}"
