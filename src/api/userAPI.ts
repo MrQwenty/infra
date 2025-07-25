@@ -1,4 +1,5 @@
 import { apiBase } from '../constants';
+import { WhatsAppVerificationRequest, WhatsAppVerificationResponse, VerifyCodeRequest, VerifyCodeResponse } from '../types/verification';
 
 export interface User {
   id: string;
@@ -31,7 +32,7 @@ export const getUserReq = async (): Promise<ApiResponse<User>> => {
   return response.json();
 };
 
-export const addPhoneReq = async (phoneNumber: string): Promise<ApiResponse<{ verificationToken: string }>> => {
+export const addPhoneReq = async (phoneNumber: string, verificationMethod: 'whatsapp' | 'sms' = 'whatsapp'): Promise<ApiResponse<{ verificationToken: string }>> => {
   const token = localStorage.getItem('authToken') || '';
   const response = await fetch(`${apiBase}/user/phone/add`, {
     method: 'POST',
@@ -39,7 +40,7 @@ export const addPhoneReq = async (phoneNumber: string): Promise<ApiResponse<{ ve
       'Content-Type': 'application/json',
       'Authorization': token,
     },
-    body: JSON.stringify({ phoneNumber }),
+    body: JSON.stringify({ phoneNumber, verificationMethod }),
   });
 
   if (!response.ok) {
@@ -49,7 +50,7 @@ export const addPhoneReq = async (phoneNumber: string): Promise<ApiResponse<{ ve
   return response.json();
 };
 
-export const changePhoneReq = async (newPhoneNumber: string): Promise<ApiResponse<{ verificationToken: string }>> => {
+export const changePhoneReq = async (newPhoneNumber: string, verificationMethod: 'whatsapp' | 'sms' = 'whatsapp'): Promise<ApiResponse<{ verificationToken: string }>> => {
   const token = localStorage.getItem('authToken') || '';
   const response = await fetch(`${apiBase}/user/phone/change`, {
     method: 'POST',
@@ -57,11 +58,29 @@ export const changePhoneReq = async (newPhoneNumber: string): Promise<ApiRespons
       'Content-Type': 'application/json',
       'Authorization': token,
     },
-    body: JSON.stringify({ newPhoneNumber }),
+    body: JSON.stringify({ newPhoneNumber, verificationMethod }),
   });
 
   if (!response.ok) {
     throw new Error('Failed to change phone number');
+  }
+
+  return response.json();
+};
+
+export const initiateWhatsAppVerificationReq = async (request: WhatsAppVerificationRequest): Promise<WhatsAppVerificationResponse> => {
+  const token = localStorage.getItem('authToken') || '';
+  const response = await fetch(`${apiBase}/user/whatsapp-verification/initiate`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': token,
+    },
+    body: JSON.stringify(request),
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to initiate WhatsApp verification');
   }
 
   return response.json();
@@ -85,19 +104,37 @@ export const verifyWhatsAppReq = async (token: string, code: string): Promise<Ap
   return response.json();
 };
 
-export const resendWhatsAppCodeReq = async (phoneNumber: string, token: string): Promise<ApiResponse<{}>> => {
+export const resendWhatsAppCodeReq = async (token: string): Promise<WhatsAppVerificationResponse> => {
   const authToken = localStorage.getItem('authToken') || '';
-  const response = await fetch(`${apiBase}/user/whatsapp-verification/send`, {
+  const response = await fetch(`${apiBase}/user/whatsapp-verification/resend`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': authToken,
     },
-    body: JSON.stringify({ phoneNumber, token }),
+    body: JSON.stringify({ token }),
   });
 
   if (!response.ok) {
     throw new Error('Failed to resend WhatsApp code');
+  }
+
+  return response.json();
+};
+
+export const cancelWhatsAppVerificationReq = async (token: string): Promise<ApiResponse<{}>> => {
+  const authToken = localStorage.getItem('authToken') || '';
+  const response = await fetch(`${apiBase}/user/whatsapp-verification/cancel`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': authToken,
+    },
+    body: JSON.stringify({ token }),
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to cancel WhatsApp verification');
   }
 
   return response.json();

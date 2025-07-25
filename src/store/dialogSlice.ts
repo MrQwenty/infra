@@ -19,7 +19,7 @@ export const dialogActions = {
     type: 'dialog/openAlertDialog',
     payload
   }),
-  openVerifyWhatsAppDialog: (payload: { type: string; payload: { phoneNumber: string; token: string } }) => ({
+  openVerifyWhatsAppDialog: (payload: { type: string; payload: { phoneNumber: string; token: string; verificationMethod?: 'whatsapp' | 'sms' } }) => ({
     type: 'dialog/openVerifyWhatsAppDialog',
     payload
   }),

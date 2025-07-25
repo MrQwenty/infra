@@ -1,0 +1,184 @@
+/* Import the verification dialog styles */
+@import './components/dialogs/GlobalDialogs/VerifyWhatsApp.css';
+
+/* Additional global styles for verification components */
+.phone-input-group {
+  position: relative;
+}
+
+.phone-input-group input[type="tel"] {
+  padding-left: 3rem;
+  font-family: 'Courier New', monospace;
+}
+
+.phone-input-group::before {
+  content: '+';
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6c757d;
+  font-weight: bold;
+  z-index: 1;
+}
+
+.verification-method-selector {
+  margin: 1rem 0;
+}
+
+.verification-method-selector .method-option {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.verification-method-selector .method-option:hover {
+  border-color: #007bff;
+  background-color: #f8f9fa;
+}
+
+.verification-method-selector .method-option.selected {
+  border-color: #007bff;
+  background-color: #e7f3ff;
+}
+
+.verification-method-selector .method-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 0.75rem;
+  flex-shrink: 0;
+}
+
+.verification-method-selector .method-details h4 {
+  margin: 0 0 0.25rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.verification-method-selector .method-details p {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #6c757d;
+}
+
+.verification-status {
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+  text-align: center;
+}
+
+.verification-status.pending {
+  background-color: #fff3cd;
+  border: 1px solid #ffeaa7;
+  color: #856404;
+}
+
+.verification-status.success {
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  color: #155724;
+}
+
+.verification-status.error {
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  color: #721c24;
+}
+
+.verification-progress {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.verification-progress .step {
+  flex: 1;
+  height: 4px;
+  background-color: #e9ecef;
+  border-radius: 2px;
+  position: relative;
+}
+
+.verification-progress .step.completed {
+  background-color: #28a745;
+}
+
+.verification-progress .step.active {
+  background-color: #007bff;
+}
+
+.verification-progress .step::after {
+  content: '';
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: inherit;
+}
+
+/* Responsive design for mobile devices */
+@media (max-width: 768px) {
+  .verification-method-selector .method-option {
+    padding: 0.75rem;
+  }
+  
+  .verification-method-selector .method-details h4 {
+    font-size: 0.9rem;
+  }
+  
+  .verification-method-selector .method-details p {
+    font-size: 0.8rem;
+  }
+  
+  .phone-input-group input[type="tel"] {
+    font-size: 16px; /* Prevent zoom on iOS */
+  }
+}
+
+/* Animation for verification success */
+@keyframes checkmark {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.verification-success-icon {
+  animation: checkmark 0.5s ease-in-out;
+  color: #28a745;
+  font-size: 2rem;
+}
+
+/* Loading spinner for verification process */
+.verification-spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #007bff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-right: 0.5rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
