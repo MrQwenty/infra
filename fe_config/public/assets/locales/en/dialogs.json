@@ -308,6 +308,7 @@
     "resendBtn": "Resend Code",
     "resending": "Resending...",
     "cancelBtn": "Cancel",
+    "success": "Phone number verified successfully!",
     "errors": {
       "codeRequired": "Please enter the verification code",
       "invalidFormat": "Please enter a valid 6-digit code",

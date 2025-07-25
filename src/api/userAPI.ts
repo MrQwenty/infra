@@ -129,7 +129,7 @@ export const resendWhatsAppCodeReq = async (token: string): Promise<WhatsAppVeri
 };
 
 export const cancelWhatsAppVerificationReq = async (token: string): Promise<ApiResponse<{}>> => {
-  const authToken = localStorage.getItem('authToken') || '';
+	const response = await fetch(`${apiBase}/user/phone/cancel-verification`, {
   const response = await fetch(`${apiBase}/user/whatsapp-verification/cancel`, {
     method: 'POST',
     headers: {
@@ -142,6 +142,7 @@ export const cancelWhatsAppVerificationReq = async (token: string): Promise<ApiR
   if (!response.ok) {
     throw new Error('Failed to cancel WhatsApp verification');
   }
-
+		const errorData = await response.json();
+		throw new Error(errorData.error || 'Failed to cancel WhatsApp verification');
   return response.json();
 };

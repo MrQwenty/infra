@@ -66,7 +66,7 @@ const ChangePhone: React.FC<ChangePhoneProps> = ({ onClose }) => {
           type: 'verifyWhatsApp',
           payload: {
             phoneNumber: formData.newPhone,
-            token: response.data.verificationToken || '',
+            token: response.data?.verificationToken || response.verificationToken || '',
             verificationMethod: formData.verificationMethod,
           }
         }));

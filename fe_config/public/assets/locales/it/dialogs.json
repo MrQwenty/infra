@@ -308,6 +308,7 @@
     "resendBtn": "Reinvia Codice",
     "resending": "Reinviando...",
     "cancelBtn": "Annulla",
+    "success": "Numero di telefono verificato con successo!",
     "errors": {
       "codeRequired": "Inserisci il codice di verifica",
       "invalidFormat": "Inserisci un codice valido a 6 cifre",

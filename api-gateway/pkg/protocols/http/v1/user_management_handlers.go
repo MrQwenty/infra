@@ -264,3 +264,42 @@ func (h *UserManagementHandlers) CancelWhatsAppVerificationHandler(c *gin.Contex
 		Message: response.Message,
 	})
 }
+
+func (h *HttpEndpoints) verifyPhoneNumber(c *gin.Context) {
+	h.grpcCallHandler(
+		c,
+		func(c *gin.Context) (protoreflect.ProtoMessage, error) {
+			var req umAPI.VerifyPhoneNumberRequest
+			if err := h.JsonToProto(c, &req); err != nil {
+				return nil, status.Error(codes.InvalidArgument, err.Error())
+			}
+			return h.clients.UserManagement.VerifyPhoneNumber(context.Background(), &req)
+		},
+	)
+}
+
+func (h *HttpEndpoints) resendPhoneVerificationCode(c *gin.Context) {
+	h.grpcCallHandler(
+		c,
+		func(c *gin.Context) (protoreflect.ProtoMessage, error) {
+			var req umAPI.ResendVerificationCodeRequest
+			if err := h.JsonToProto(c, &req); err != nil {
+				return nil, status.Error(codes.InvalidArgument, err.Error())
+			}
+			return h.clients.UserManagement.ResendVerificationCode(context.Background(), &req)
+		},
+	)
+}
+
+func (h *HttpEndpoints) cancelPhoneVerification(c *gin.Context) {
+	h.grpcCallHandler(
+		c,
+		func(c *gin.Context) (protoreflect.ProtoMessage, error) {
+			var req umAPI.CancelVerificationRequest
+			if err := h.JsonToProto(c, &req); err != nil {
+				return nil, status.Error(codes.InvalidArgument, err.Error())
+			}
+			return h.clients.UserManagement.CancelVerification(context.Background(), &req)
+		},
+	)
+}

@@ -100,7 +100,7 @@ func (w *WhatsAppClient) SendVerificationCode(ctx context.Context, phoneNumber, 
 					Parameters: []WhatsAppTemplateParameter{
 						{
 							Type: "text",
-							Text: fmt.Sprintf("Your InfluenzaNet verification code is: %s. This code will expire in 10 minutes.", code),
+							Text: fmt.Sprintf("Il tuo codice di verifica InfluenzaNet è: %s. Questo codice scadrà tra 10 minuti.", code),
 						},
 					},
 				},

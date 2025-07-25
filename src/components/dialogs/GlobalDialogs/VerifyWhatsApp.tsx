@@ -69,21 +69,21 @@ const VerifyWhatsApp: React.FC<VerifyWhatsAppProps> = ({
       
       if (response.success) {
         // Show success message briefly before closing
-        setError('');
+        setError(t('dialogs.verifyWhatsApp.success'));
         setTimeout(() => {
           dispatch(dialogActions.closeDialog());
         }, 1000);
       } else {
-        if (response.data?.attemptsRemaining !== undefined) {
-          setAttemptsRemaining(response.data.attemptsRemaining);
-          if (response.data.attemptsRemaining === 0) {
+        if (response.attemptsRemaining !== undefined) {
+          setAttemptsRemaining(response.attemptsRemaining);
+          if (response.attemptsRemaining === 0) {
             setError(t('dialogs.verifyWhatsApp.errors.maxAttemptsReached'));
             setTimeout(() => {
               handleCancel();
             }, 3000);
           } else {
             setError(t('dialogs.verifyWhatsApp.errors.verificationFailed', { 
-              attempts: response.data.attemptsRemaining 
+              attempts: response.attemptsRemaining 
             }));
           }
         } else {

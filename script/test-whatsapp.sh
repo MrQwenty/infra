@@ -13,7 +13,7 @@ ACCESS_TOKEN="EAA6YlMvSeosBPM6NEv0SDKPu5IrTuAkLqL3jsQPglG181ZBD2bLy9P0TEtFJZBr06
 PHONE_NUMBER_ID="676124925591256"
 
 # Test phone number (use your own WhatsApp number for testing)
-TEST_PHONE_NUMBER="+1234567890"  # Replace with your actual WhatsApp number
+TEST_PHONE_NUMBER="+393930238386"  # Replace with your actual WhatsApp number
 
 echo "📱 Testing direct WhatsApp API call..."
 
@@ -35,7 +35,7 @@ curl -X POST "$WHATSAPP_API_URL" \
           "parameters": [
             {
               "type": "text",
-              "text": "Your InfluenzaNet verification code is: 123456. This code will expire in 10 minutes."
+              "text": "Il tuo codice di verifica InfluenzaNet è: 123456. Questo codice scadrà tra 10 minuti."
             }
           ]
         }
