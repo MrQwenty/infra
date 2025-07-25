@@ -296,9 +296,13 @@
   },
   "verifyWhatsApp": {
     "title": "Verifica WhatsApp",
-    "description": "Abbiamo inviato un codice di verifica a {{phoneNumber}} tramite WhatsApp. Inserisci il codice qui sotto.",
+    "description": "Abbiamo inviato un codice di verifica a {{phoneNumber}} tramite {{method}}. Inserisci il codice qui sotto.",
     "codeInputLabel": "Codice di Verifica",
     "codeInputPlaceholder": "Inserisci codice a 6 cifre",
+    "timeRemaining": "Tempo rimanente",
+    "digitsEntered": "cifre inserite",
+    "attemptsRemaining": "{{count}} tentativo rimanente",
+    "attemptsRemaining_plural": "{{count}} tentativi rimanenti",
     "verifyBtn": "Verifica",
     "verifying": "Verificando...",
     "resendBtn": "Reinvia Codice",
@@ -306,6 +310,9 @@
     "cancelBtn": "Annulla",
     "errors": {
       "codeRequired": "Inserisci il codice di verifica",
+      "invalidFormat": "Inserisci un codice valido a 6 cifre",
+      "expired": "Il codice di verifica è scaduto",
+      "maxAttemptsReached": "Raggiunto il numero massimo di tentativi",
       "verificationFailed": "Verifica fallita. Controlla il codice e riprova.",
       "resendFailed": "Impossibile reinviare il codice di verifica. Riprova."
     }

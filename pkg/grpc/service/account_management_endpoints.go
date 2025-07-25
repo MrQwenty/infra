@@ -369,19 +369,22 @@ func (s *userManagementServer) sendVerificationCode(phoneNumber, code, method st
 }
 
 func (s *userManagementServer) sendWhatsAppVerification(phoneNumber, code string, retryCount int) error {
-	// Simulate WhatsApp API call with retry logic
-	message := fmt.Sprintf("Your InfluenzaNet verification code is: %s. This code will expire in %d minutes.", code, VERIFICATION_CODE_EXPIRY_MINUTES)
+	// Initialize WhatsApp client
+	whatsappClient := NewWhatsAppClient()
 	
-	log.Printf("Sending WhatsApp verification to %s (attempt %d): %s", phoneNumber, retryCount+1, message)
+	// Create context with timeout
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
 	
-	// Simulate API call failure for demonstration
-	if retryCount < MAX_RETRY_ATTEMPTS {
-		// In real implementation, make actual WhatsApp API call here
-		// For now, we'll simulate success
-		return nil
+	// Send with retry mechanism
+	err := whatsappClient.SendWithRetry(ctx, phoneNumber, code, MAX_RETRY_ATTEMPTS)
+	if err != nil {
+		log.Printf("Failed to send WhatsApp verification to %s: %v", phoneNumber, err)
+		return fmt.Errorf("failed to send WhatsApp verification: %w", err)
 	}
 	
-	return fmt.Errorf("failed to send WhatsApp verification after %d attempts", MAX_RETRY_ATTEMPTS)
+	log.Printf("WhatsApp verification sent successfully to %s", phoneNumber)
+	return nil
 }
 
 func (s *userManagementServer) sendSMSVerification(phoneNumber, code string, retryCount int) error {

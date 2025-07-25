@@ -70,17 +70,21 @@ export const changePhoneReq = async (newPhoneNumber: string, verificationMethod:
 
 export const initiateWhatsAppVerificationReq = async (request: WhatsAppVerificationRequest): Promise<WhatsAppVerificationResponse> => {
   const token = localStorage.getItem('authToken') || '';
-  const response = await fetch(`${apiBase}/user/whatsapp-verification/initiate`, {
+  const response = await fetch(`${apiBase}/user/contact/add-phone`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': token,
     },
-    body: JSON.stringify(request),
+    body: JSON.stringify({
+      newPhone: request.phoneNumber,
+      verificationMethod: request.verificationMethod
+    }),
   });
 
   if (!response.ok) {
-    throw new Error('Failed to initiate WhatsApp verification');
+    const errorData = await response.json();
+    throw new Error(errorData.error || 'Failed to initiate WhatsApp verification');
   }
 
   return response.json();
@@ -88,7 +92,7 @@ export const initiateWhatsAppVerificationReq = async (request: WhatsAppVerificat
 
 export const verifyWhatsAppReq = async (token: string, code: string): Promise<ApiResponse<{}>> => {
   const authToken = localStorage.getItem('authToken') || '';
-  const response = await fetch(`${apiBase}/user/whatsapp-verification/verify`, {
+  const response = await fetch(`${apiBase}/user/contact/verify-phone`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -98,7 +102,8 @@ export const verifyWhatsAppReq = async (token: string, code: string): Promise<Ap
   });
 
   if (!response.ok) {
-    throw new Error('Failed to verify WhatsApp code');
+    const errorData = await response.json();
+    throw new Error(errorData.error || 'Failed to verify WhatsApp code');
   }
 
   return response.json();
@@ -106,7 +111,7 @@ export const verifyWhatsAppReq = async (token: string, code: string): Promise<Ap
 
 export const resendWhatsAppCodeReq = async (token: string): Promise<WhatsAppVerificationResponse> => {
   const authToken = localStorage.getItem('authToken') || '';
-  const response = await fetch(`${apiBase}/user/whatsapp-verification/resend`, {
+  const response = await fetch(`${apiBase}/user/contact/resend-verification`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -116,7 +121,8 @@ export const resendWhatsAppCodeReq = async (token: string): Promise<WhatsAppVeri
   });
 
   if (!response.ok) {
-    throw new Error('Failed to resend WhatsApp code');
+    const errorData = await response.json();
+    throw new Error(errorData.error || 'Failed to resend WhatsApp code');
   }
 
   return response.json();

@@ -30,31 +30,44 @@ class WhatsAppVerificationService {
    */
   private async sendWhatsAppMessage(phoneNumber: string, code: string, retryCount: number = 0): Promise<boolean> {
     try {
-      // Simulate WhatsApp API call
-      const response = await fetch('/api/whatsapp/send-verification', {
+      // Real WhatsApp Meta Business API call
+      const whatsappApiUrl = 'https://graph.facebook.com/v19.0/676124925591256/messages';
+      const accessToken = 'EAA6YlMvSeosBPM6NEv0SDKPu5IrTuAkLqL3jsQPglG181ZBD2bLy9P0TEtFJZBr064A5PFSc3fZAuZCMJeUKCkYbs2CN0vJkkuRLPJXqbaP8bpuX3ZC3PtX1yh7ZCexyjgTSjTy6PVUujRQ9cydJ4XV8ZBxYGRojZArolTo14YBnCgoJaf2VUdZBy1zOsQ4AyF1JrKD3gB64w8pBvhSTN1sDPyVjsSsoOiM25FyerpVdsqBVHaAZDZD';
+      
+      const response = await fetch(whatsappApiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${process.env.WHATSAPP_API_TOKEN}`,
+          'Authorization': `Bearer ${accessToken}`,
         },
         body: JSON.stringify({
           to: phoneNumber,
-          template: 'phone_verification',
-          components: [{
-            type: 'body',
-            parameters: [{
-              type: 'text',
-              text: code
+          type: 'template',
+          template: {
+            name: 'hello_world',
+            language: {
+              code: 'en_US'
+            },
+            components: [{
+              type: 'body',
+              parameters: [{
+                type: 'text',
+                text: `Your InfluenzaNet verification code is: ${code}. This code will expire in 10 minutes.`
+              }]
             }]
-          }]
+          }
         })
       });
 
       if (response.ok) {
+        const responseData = await response.json();
         console.log(`WhatsApp verification sent successfully to ${phoneNumber}`);
+        console.log('WhatsApp API Response:', responseData);
         return true;
       } else {
-        throw new Error(`WhatsApp API error: ${response.status}`);
+        const errorData = await response.json();
+        console.error('WhatsApp API Error:', errorData);
+        throw new Error(`WhatsApp API error: ${response.status} - ${JSON.stringify(errorData)}`);
       }
     } catch (error) {
       console.error(`Failed to send WhatsApp verification (attempt ${retryCount + 1}):`, error);

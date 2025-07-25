@@ -3,7 +3,7 @@ This is the InfluenzaNet platform infrastructure with WhatsApp phone number veri
 
 ## WhatsApp Phone Number Verification
 
-The system now includes a comprehensive phone number verification feature using WhatsApp:
+The system now includes a comprehensive phone number verification feature using WhatsApp Meta Business API:
 
 ### Features
 - **Multi-method verification**: Support for both WhatsApp and SMS verification
@@ -12,6 +12,7 @@ The system now includes a comprehensive phone number verification feature using 
 - **Expiration handling**: Verification codes expire after 10 minutes
 - **Real-time feedback**: Live countdown timer and attempt counter
 - **Graceful fallback**: Automatic cleanup of failed verifications
+- **Meta Business API**: Direct integration with WhatsApp Graph API v19.0
 
 ### User Flow
 1. User adds or changes phone number
@@ -21,10 +22,17 @@ The system now includes a comprehensive phone number verification feature using 
 5. System verifies code with maximum 3 attempts
 6. Phone number is marked as verified upon success
 
+### WhatsApp API Configuration
+The system is configured with the following Meta Business API credentials:
+- **API URL**: https://graph.facebook.com/v19.0
+- **Phone Number ID**: 676124925591256
+- **Access Token**: Configured in environment variables
+- **Template**: Uses 'hello_world' template for verification messages
+
 ### Technical Implementation
 - **Frontend**: React components with TypeScript
 - **Backend**: Go microservices with gRPC
-- **Verification Service**: Dedicated WhatsApp verification service
+- **WhatsApp Client**: Direct integration with Meta Business API
 - **Retry Logic**: Exponential backoff for failed deliveries
 - **Security**: Token-based verification with expiration
 - **Cleanup**: Automatic cleanup of expired verification attempts
@@ -45,8 +53,8 @@ The system now includes a comprehensive phone number verification feature using 
 
 2. Configure WhatsApp API credentials in `.env`:
 ```bash
-WHATSAPP_API_TOKEN=your_whatsapp_api_token_here
-WHATSAPP_PHONE_NUMBER_ID=your_phone_number_id_here
+WHATSAPP_API_TOKEN=EAA6YlMvSeosBPM6NEv0SDKPu5IrTuAkLqL3jsQPglG181ZBD2bLy9P0TEtFJZBr064A5PFSc3fZAuZCMJeUKCkYbs2CN0vJkkuRLPJXqbaP8bpuX3ZC3PtX1yh7ZCexyjgTSjTy6PVUujRQ9cydJ4XV8ZBxYGRojZArolTo14YBnCgoJaf2VUdZBy1zOsQ4AyF1JrKD3gB64w8pBvhSTN1sDPyVjsSsoOiM25FyerpVdsqBVHaAZDZD
+WHATSAPP_PHONE_NUMBER_ID=676124925591256
 WHATSAPP_WEBHOOK_VERIFY_TOKEN=your_webhook_verify_token_here
 ```
 
@@ -79,19 +87,37 @@ To rebuild specific services:
 
 ## Testing WhatsApp Verification
 
+### Quick Test
+Run the test script to verify WhatsApp API integration:
+```bash
+./script/test-whatsapp.sh
+```
+
+### Manual Testing
 1. **Add Phone Number**: Use the settings page to add a phone number
 2. **Select Method**: Choose WhatsApp or SMS verification
 3. **Enter Code**: Input the 6-digit verification code
 4. **Verify**: System validates the code and marks phone as verified
 
+### API Testing
+Test the WhatsApp API directly:
+```bash
+curl -X POST "https://graph.facebook.com/v19.0/676124925591256/messages" \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "to": "+1234567890",
+    "type": "template",
+    "template": {
+      "name": "hello_world",
+      "language": {"code": "en_US"}
+    }
+  }'
+```
+
 ## API Endpoints
 
 ### Phone Number Management
-- `POST /v1/user/phone/add` - Add phone number
-- `POST /v1/user/phone/change` - Change phone number
-- `POST /v1/user/whatsapp-verification/verify` - Verify code
-- `POST /v1/user/whatsapp-verification/resend` - Resend code
-- `POST /v1/user/whatsapp-verification/cancel` - Cancel verification
 
 # Contribute
 

@@ -296,9 +296,13 @@
   },
   "verifyWhatsApp": {
     "title": "Verify WhatsApp",
-    "description": "We sent a verification code to {{phoneNumber}} via WhatsApp. Please enter the code below.",
+    "description": "We sent a verification code to {{phoneNumber}} via {{method}}. Please enter the code below.",
     "codeInputLabel": "Verification Code",
     "codeInputPlaceholder": "Enter 6-digit code",
+    "timeRemaining": "Time remaining",
+    "digitsEntered": "digits entered",
+    "attemptsRemaining": "{{count}} attempt remaining",
+    "attemptsRemaining_plural": "{{count}} attempts remaining",
     "verifyBtn": "Verify",
     "verifying": "Verifying...",
     "resendBtn": "Resend Code",
@@ -306,6 +310,9 @@
     "cancelBtn": "Cancel",
     "errors": {
       "codeRequired": "Please enter the verification code",
+      "invalidFormat": "Please enter a valid 6-digit code",
+      "expired": "Verification code has expired",
+      "maxAttemptsReached": "Maximum verification attempts reached",
       "verificationFailed": "Verification failed. Please check your code and try again.",
       "resendFailed": "Failed to resend verification code. Please try again."
     }
