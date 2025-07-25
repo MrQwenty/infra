@@ -145,4 +145,6 @@ export const cancelWhatsAppVerificationReq = async (token: string): Promise<ApiR
 		const errorData = await response.json();
 		throw new Error(errorData.error || 'Failed to cancel WhatsApp verification');
   return response.json();
-};
+	};
+	)
+}
